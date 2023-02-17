@@ -7,7 +7,7 @@ Reusable workflow for mikbot projects
 ```yml
 jobs:
   mikbot:
-    uses: mikbot/mikbot-workflow/.github/workflows/mikbot-workflow.yml@v1.0.0
+    uses: mikbot/mikbot-workflow/.github/workflows/mikbot-workflow.yml@v1.0.1
     with:
       run-maven-publish: true
     secrets:
