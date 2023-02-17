@@ -11,7 +11,7 @@
         "JAVA_VERSION: (?<currentValue>.*)"
       ],
       "datasourceTemplate": "java-version",
-      "packageNameTemplate": "java-jdk",
+      "depNameTemplate": "java-jdk",
       "versioningTemplate": "loose"
     }
   ]
