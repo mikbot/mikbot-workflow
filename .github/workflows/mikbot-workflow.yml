@@ -83,7 +83,7 @@ jobs:
           java-version: github.env.JAVA_VERSION
       - name: 'Login to GCP'
         id: 'auth'
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: ${{ secrets.GCP_ACCOUNT_KEY }}
       - name: 'Set up Cloud SDK'
@@ -139,7 +139,7 @@ jobs:
           java-version: github.env.JAVA_VERSION
       - name: 'Login to GCP'
         id: 'auth'
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: ${{ secrets.GCP_ACCOUNT_KEY }}
       - name: 'Set up Cloud SDK'
