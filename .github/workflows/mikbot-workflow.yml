@@ -56,7 +56,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: github.env.JAVA_VERSION
+          java-version: ${{ github.env.JAVA_VERSION }}
       - uses: gradle/gradle-build-action@v2
         id: gradle
         with:
@@ -84,7 +84,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: github.env.JAVA_VERSION
+          java-version: ${{ github.env.JAVA_VERSION }}
       - name: 'Login to GCP'
         id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -115,7 +115,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: github.env.JAVA_VERSION
+          java-version: ${{ github.env.JAVA_VERSION }}
       - uses: gradle/gradle-build-action@v2
         env:
           JFROG_USER: ${{ secrets.JFROG_USER }}
@@ -140,7 +140,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: github.env.JAVA_VERSION
+          java-version: ${{ github.env.JAVA_VERSION }}
       - name: 'Login to GCP'
         id: 'auth'
         uses: 'google-github-actions/auth@v1'
