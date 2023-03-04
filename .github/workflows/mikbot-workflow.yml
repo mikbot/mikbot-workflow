@@ -15,6 +15,10 @@ on:
         default: false
         type: boolean
         required: false
+      discord-webhook:
+        default: true
+        type: boolean
+        required: false
     secrets:
       BUILDCACHE_USER:
         required: false
@@ -59,7 +63,7 @@ jobs:
           arguments: build --scan --no-daemon --build-cache
       - uses: Ilshidur/action-discord@0.3.2
         continue-on-error: true
-        if: secrets.DISCORD_WEBHOOK != null && github.event_name != 'pull_request'
+        if: inputs.discord-webhook && github.event_name != 'pull_request'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
