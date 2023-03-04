@@ -152,7 +152,7 @@ jobs:
         run: mkdir ci-repo
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: installCi --no-daemon --build-cache
+          arguments: runtime/installCi --no-daemon --build-cache
       - name: 'Upload repo changes'
-        working-directory: ci-repo
+        working-directory: runtime/ci-repo
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
