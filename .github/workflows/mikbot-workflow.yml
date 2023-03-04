@@ -119,7 +119,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         env:
           JFROG_USER: ${{ secrets.JFROG_USER }}
-          JFROG_PASSWORD: ${{ secrets.JFROG_KEY }}
+          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         with:
