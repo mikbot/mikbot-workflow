@@ -186,8 +186,8 @@ jobs:
           DOCKER_NAME: ${{ inputs.docker-name }}
         run: |
           docker buildx build \
-                  --tag  $DOCKER_IMAGE:"$GITHUB_SHA" \
-                  --tag  $DOCKER_IMAGE:latest \
+                  --tag $DOCKER_IMAGE:"$GITHUB_SHA" \
+                  --tag $DOCKER_IMAGE:latest \
                   --file ./Dockerfile \
                   --output type=image,push=true .
       
