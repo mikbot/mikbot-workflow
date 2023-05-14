@@ -26,6 +26,7 @@ jobs:
 | `update-plugin-repository` | Boolean | Push plugins to GCS repository            | true    | false    |
 | `update-binary-repository` | Boolean | Push bot binary to GCS repository         | false   | false    |
 | `discord-webhook`          | Boolean | Send Gradle Build scan to Discord webhook | false   | false    |
+| `docker-name`              | String  | Name for the docker image to publish      | null   | false    |
 
 # Secrets
 
