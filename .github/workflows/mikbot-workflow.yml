@@ -180,7 +180,7 @@ jobs:
       - name: Login
         env:
           GITHUB_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-        run: docker login ghcr.io --username DRSchlaubi --password "$GITHUB_TOKEN"
+        run: echo "$GITHUB_TOKEN" | docker login ghcr.io --username DRSchlaubi --password-stdin
       - name: Push Image
         env:
           DOCKER_NAME: ${{ inputs.docker-name }}
