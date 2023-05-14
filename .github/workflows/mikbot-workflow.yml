@@ -19,6 +19,10 @@ on:
         default: true
         type: boolean
         required: false
+      docker-name:
+        default: null
+        type: string
+        required: false
     secrets:
       BUILDCACHE_USER:
         required: false
@@ -47,7 +51,6 @@ env:
 jobs:
   build:
     name: Build
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
     runs-on: ubuntu-20.04
     env:
       GRADLE_BUILD_CACHE_PUSH: true
@@ -156,3 +159,35 @@ jobs:
       - name: 'Upload repo changes'
         working-directory: runtime/ci-repo
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
+  push:
+    name: Push
+    runs-on: ubuntu-20.04
+    needs: [ build ]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && inputs.docker-name != null
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '19'
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: :installDist --no-daemon --build-cache
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: docker login ghcr.io --username DRSchlaubi --password "$GITHUB_TOKEN"
+      - name: Push Image
+        env:
+          DOCKER_NAME: ${{ inputs.docker-name }}
+        run: |
+          docker buildx build \
+                  --tag  $DOCKER_IMAGE:"$GITHUB_SHA" \
+                  --tag  $DOCKER_IMAGE:latest \
+                  --file ./Dockerfile \
+                  --output type=image,push=true .
+      
