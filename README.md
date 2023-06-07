@@ -12,8 +12,6 @@ jobs:
       run-maven-publish: true
     secrets:
       GCP_ACCOUNT_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
-      JFROG_USER: ${{ secrets.JFROG_USER }}
-      JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
       SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
       SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
 ```
