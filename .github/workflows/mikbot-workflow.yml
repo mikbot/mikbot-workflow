@@ -32,10 +32,6 @@ on:
         required: false
       GCP_ACCOUNT_KEY:
         required: false
-      JFROG_USER:
-        required: false
-      JFROG_PASSWORD:
-        required: false
       SIGNING_KEY:
         required: false
       SIGNING_KEY_PASSWORD:
@@ -123,8 +119,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/gradle-build-action@v2
         env:
-          JFROG_USER: ${{ secrets.JFROG_USER }}
-          JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+          GOOGLE_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         with:

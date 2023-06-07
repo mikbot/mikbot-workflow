@@ -31,13 +31,11 @@ jobs:
 The following secrets can be specified
 using [GitHub Secrets](https://docs.github.com/de/actions/security-guides/encrypted-secrets)
 
-| Name                 | Type            | Description                                | Default | Required                                                            |
-|----------------------|-----------------|--------------------------------------------|---------|---------------------------------------------------------------------|
-| BUILDCACHE_USER      | String          | Gradle Build Cache user                    | null    | false                                                               |
-| BUILDCACHE_PASSWORD  | String          | Gradle Build Cache password                | null    | if `BUILDCACHE_USER` is specified                                   |
-| DISCORD_WEBHOOK      | String          | Discord Webhook URL to push build scans to | null    | if `discord-webhook` is true                                        |
-| GCP_ACCOUNT_KEY      | String (base64) | ServiceAccountKey.json of GCS bucket       | null    | if `update-plugin-repository` or `update-binary-repository  is true |
-| JFROG_USER           | String          | Maven username                             | null    | if `run-maven-publish` is true                                      |
-| JFROG_PASSWORD       | String          | Maven password                             | null    | if `run-maven-publish` is true                                      |
-| SIGNING_KEY          | String          | Signing key                                | null    | if `run-maven-publish` is true                                      |
-| SIGNING_KEY_PASSWORD | String          | Signing key password                       | null    | if `run-maven-publish` is true                                      |
+| Name                 | Type            | Description                                | Default | Required                                                                                           |
+|----------------------|-----------------|--------------------------------------------|---------|----------------------------------------------------------------------------------------------------|
+| BUILDCACHE_USER      | String          | Gradle Build Cache user                    | null    | false                                                                                              |
+| BUILDCACHE_PASSWORD  | String          | Gradle Build Cache password                | null    | if `BUILDCACHE_USER` is specified                                                                  |
+| DISCORD_WEBHOOK      | String          | Discord Webhook URL to push build scans to | null    | if `discord-webhook` is true                                                                       |
+| GCP_ACCOUNT_KEY      | String (base64) | ServiceAccountKey.json of GCS bucket       | null    | if `update-plugin-repository` or `update-binary-repository  is true or `run-maven-publish` is true |
+| SIGNING_KEY          | String          | Signing key                                | null    | if `run-maven-publish` is true                                                                     |
+| SIGNING_KEY_PASSWORD | String          | Signing key password                       | null    | if `run-maven-publish` is true                                                                     |
