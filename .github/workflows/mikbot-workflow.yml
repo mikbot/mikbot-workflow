@@ -44,7 +44,7 @@ env:
   GRADLE_BUILDCACHE_PASSWORD: ${{ secrets.BUILDCACHE_PASSWORD }}
   ORG_GRADLE_CACHING: true
   IS_PR: ${{ github.event_name == 'pull_request' }}
-  JAVA_VERSION: 19
+  JAVA_VERSION: 20
 
 jobs:
   build:
