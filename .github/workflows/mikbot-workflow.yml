@@ -49,7 +49,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       GRADLE_BUILD_CACHE_PUSH: true
     steps:
@@ -71,7 +71,7 @@ jobs:
           args: 'New build scan: ${{ steps.gradle.outputs.build-scan-url }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
   update_repository:
     name: Update repository
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ build ]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     # Add "id-token" with the intended permissions.
@@ -108,7 +108,7 @@ jobs:
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
   update_maven:
     name: Push to maven repo
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ build ]
     if: inputs.run-maven-publish && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     steps:
@@ -126,7 +126,7 @@ jobs:
           arguments: publish --no-daemon --build-cache
   update_binary:
     name: Push binary to binary repo
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ build ]
     if: inputs.update-binary-repository && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     # Add "id-token" with the intended permissions.
@@ -158,7 +158,7 @@ jobs:
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
   push:
     name: Push
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [ build ]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && inputs.docker-name != null
     permissions:
