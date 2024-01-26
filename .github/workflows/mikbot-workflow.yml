@@ -58,7 +58,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         id: gradle
         with:
           arguments: build --scan --no-daemon --build-cache
@@ -100,7 +100,7 @@ jobs:
         run: gsutil -m cp -R $GOOGLE_CLOUD_BUCKET/* .
       - name: 'Copy index'
         run: cp ci-repo-old/plugins.json ci-repo
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: buildRepository --no-daemon --build-cache
       - name: 'Upload repo changes'
@@ -117,7 +117,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         env:
           GOOGLE_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
@@ -150,7 +150,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v1'
       - name: 'Create working Directory'
         run: mkdir ci-repo
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: runtime:installCi --no-daemon --build-cache
       - name: 'Upload repo changes'
@@ -169,7 +169,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@v3
         with:
           arguments: :buildDockerImage --no-daemon --build-cache
       - name: Set up QEMU
