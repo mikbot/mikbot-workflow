@@ -167,7 +167,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
       - uses: gradle/actions/setup-gradle@v3
-        run: ./gradlw :buildDockerImage --no-daemon --build-cache
+      - run: ./gradlw :buildDockerImage --no-daemon --build-cache
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
