@@ -59,7 +59,7 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradle build --scan --no-daemon --build-cache
+      - run: ./gradlew build --scan --no-daemon --build-cache
         id: gradle
       - uses: Ilshidur/action-discord@0.3.2
         continue-on-error: true
@@ -100,7 +100,7 @@ jobs:
       - name: 'Copy index'
         run: cp ci-repo-old/plugins.json ci-repo
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradle buildRepository --no-daemon --build-cache
+      - run: ./gradlew buildRepository --no-daemon --build-cache
         id: gradle        
       - name: 'Upload repo changes'
         working-directory: ci-repo
