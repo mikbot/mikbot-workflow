@@ -42,6 +42,9 @@ env:
   GRADLE_BUILD_CACHE_PUSH: false
   GRADLE_BUILDCACHE_USERNNAME: ${{ secrets.BUILDCACHE_USER }}
   GRADLE_BUILDCACHE_PASSWORD: ${{ secrets.BUILDCACHE_PASSWORD }}
+  GOOGLE_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
+  SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+  SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
   ORG_GRADLE_CACHING: true
   IS_PR: ${{ github.event_name == 'pull_request' }}
   JAVA_VERSION: 22
@@ -117,10 +120,6 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/actions/setup-gradle@v3
-        env:
-          GOOGLE_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
       - run: ./gradlew publish --no-daemon --build-cache
   update_binary:
     name: Push binary to binary repo
@@ -167,7 +166,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
       - uses: gradle/actions/setup-gradle@v3
-      - run: ./gradlw :buildDockerImage --no-daemon --build-cache
+      - run: ./gradlew :buildDockerImage --no-daemon --build-cache
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
