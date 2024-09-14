@@ -15,10 +15,6 @@ on:
         default: false
         type: boolean
         required: false
-      discord-webhook:
-        default: true
-        type: boolean
-        required: false
       docker-name:
         default: null
         type: string
@@ -31,8 +27,6 @@ on:
       BUILDCACHE_USER:
         required: false
       BUILDCACHE_PASSWORD:
-        required: false
-      DISCORD_WEBHOOK:
         required: false
       GCP_ACCOUNT_KEY:
         required: false
@@ -68,13 +62,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew check --scan --build-cache
         id: gradle
-      - uses: Ilshidur/action-discord@0.3.2
-        continue-on-error: true
-        if: inputs.discord-webhook && github.event_name != 'pull_request'
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          args: 'New build scan: ${{ steps.gradle.outputs.build-scan-url }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
   update_repository:
     name: Update repository
     runs-on: ubuntu-22.04
