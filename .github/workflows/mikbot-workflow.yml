@@ -23,6 +23,10 @@ on:
         default: null
         type: string
         required: false
+      docker-platforms:
+        default: linux/arm64, linux/amd64
+        type: string
+        required: false
     secrets:
       BUILDCACHE_USER:
         required: false
@@ -171,15 +175,26 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Login
-        env:
-          GITHUB_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-        run: echo "$GITHUB_TOKEN" | docker login ghcr.io --username DRSchlaubi --password-stdin
-      - name: Push Image
-        run: |
-          docker buildx build \
-                  --tag ${{inputs.docker-name}}:${{github.sha}} \
-                  --tag ${{inputs.docker-name}}:latest \
-                  --file ./Dockerfile \
-                  --output type=image,push=true .
-      
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{inputs.docker-name}}
+      - name: Log into registry ghcr.io
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: ${{ inputs.docker-platforms }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max          
