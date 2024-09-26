@@ -50,7 +50,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       GRADLE_BUILD_CACHE_PUSH: true
     steps:
@@ -64,7 +64,7 @@ jobs:
         id: gradle
   update_repository:
     name: Update repository
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ build ]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     # Add "id-token" with the intended permissions.
@@ -101,7 +101,7 @@ jobs:
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
   update_maven:
     name: Push to maven repo
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ build ]
     if: inputs.run-maven-publish && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     steps:
@@ -114,7 +114,7 @@ jobs:
       - run: ./gradlew publish --build-cache
   update_binary:
     name: Push binary to binary repo
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ build ]
     if: inputs.update-binary-repository && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     # Add "id-token" with the intended permissions.
@@ -145,7 +145,7 @@ jobs:
         run: gsutil -m cp -R . $GOOGLE_CLOUD_BUCKET
   push:
     name: Push
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ build ]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && inputs.docker-name != null
     permissions:
