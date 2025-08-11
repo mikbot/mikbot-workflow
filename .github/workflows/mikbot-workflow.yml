@@ -54,7 +54,7 @@ jobs:
     env:
       GRADLE_BUILD_CACHE_PUSH: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -74,7 +74,7 @@ jobs:
     env:
       GOOGLE_CLOUD_BUCKET: gs://mikbot-plugins
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -105,7 +105,7 @@ jobs:
     needs: [ build ]
     if: inputs.run-maven-publish && github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -124,7 +124,7 @@ jobs:
     env:
       GOOGLE_CLOUD_BUCKET: gs://mikbot-binaries
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -151,7 +151,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
