@@ -59,7 +59,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew check --scan --build-cache
         id: gradle
   update_repository:
@@ -93,7 +93,7 @@ jobs:
         run: gsutil -m cp -R $GOOGLE_CLOUD_BUCKET/* .
       - name: 'Copy index'
         run: cp ci-repo-old/plugins.json ci-repo
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew buildRepository --build-cache
         id: gradle        
       - name: 'Upload repo changes'
@@ -110,7 +110,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew publish --build-cache
   update_binary:
     name: Push binary to binary repo
@@ -138,7 +138,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v3'
       - name: 'Create working Directory'
         run: mkdir ci-repo
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew runtime:installCi --build-cache
       - name: 'Upload repo changes'
         working-directory: runtime/ci-repo
@@ -156,7 +156,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 24
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - run: ./gradlew :buildDockerImage --build-cache
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
