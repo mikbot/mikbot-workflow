@@ -59,7 +59,7 @@ jobs:
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - run: ./gradlew check --scan --build-cache
         id: gradle
   update_repository:
@@ -138,7 +138,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v3'
       - name: 'Create working Directory'
         run: mkdir ci-repo
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
       - run: ./gradlew runtime:installCi --build-cache
       - name: 'Upload repo changes'
         working-directory: runtime/ci-repo
