@@ -60,6 +60,12 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ env.JAVA_VERSION }}
       - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-overwrite-existing: 'true'
+          cache-cleanup: 'on-success'
+          build-scan-publish: 'true'
+          build-scan-terms-of-use-agree: 'yes'
+          build-scan-terms-of-use-url: https://gradle.com/help/legal-terms-of-use
       - run: ./gradlew check
         id: gradle
   update_repository:
@@ -94,6 +100,12 @@ jobs:
       - name: 'Copy index'
         run: cp ci-repo-old/plugins.json ci-repo
       - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-overwrite-existing: 'true'
+          cache-cleanup: 'on-success'
+          build-scan-publish: 'true'
+          build-scan-terms-of-use-agree: 'yes'
+          build-scan-terms-of-use-url: https://gradle.com/help/legal-terms-of-use
       - run: ./gradlew buildRepository
         id: gradle        
       - name: 'Upload repo changes'
